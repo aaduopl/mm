@@ -1,17 +1,10 @@
 #aadi2ddoserpython
 
-import os
-import socket
+import telebot
 import subprocess
-import asyncio
-import pytz
-import platform
-import random
-import string
-from telegram import Update
-from telegram.ext import Application, CommandHandler, CallbackContext, filters, MessageHandler
-from pymongo import MongoClient
-from datetime import datetime, timedelta, timezone
+import datetime
+import os
+
 # Insert your Telegram bot token here
 bot = telebot.TeleBot('7763199485:AAFELzHd_eDNraQgwyICxxhx-HmVkCFScHA')
 
