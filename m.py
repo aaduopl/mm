@@ -78,11 +78,6 @@ def record_command_logs(user_id, command, target=None, port=None, time=None):
     with open(LOG_FILE, "a") as file:
         file.write(log_entry + "\n")
 
-# Function to handle terminal commands
-async def execute_terminal(update: Update, context: CallbackContext):
-    global current_directory
-    user_id = update.effective_user.id
-
     # Restrict access to admin only
     if user_id != ADMIN_USER_ID:
         await context.bot.send_message(
