@@ -4,7 +4,7 @@ import telebot
 import subprocess
 import datetime
 import os
-from telegram.ext import Application, CommandHandler, CallbackContext, filters, MessageHandler
+import Application, CommandHandler, CallbackContext, filters, MessageHandler
 
 # Insert your Telegram bot token here
 bot = telebot.TeleBot('7763199485:AAFELzHd_eDNraQgwyICxxhx-HmVkCFScHA')
