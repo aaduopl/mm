@@ -78,24 +78,6 @@ def record_command_logs(user_id, command, target=None, port=None, time=None):
     with open(LOG_FILE, "a") as file:
         file.write(log_entry + "\n")
 
-    # Restrict access to admin only
-    if user_id != ADMIN_USER_ID:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text="❌ *You are not authorized to execute terminal commands!*",
-            parse_mode='Markdown'
-        )
-        return
-
-    # Ensure a command is provided
-    if not context.args:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text="⚠️ *Usage: /terminal <command>*",
-            parse_mode='Markdown'
-        )
-        return
-
 @bot.message_handler(commands=['add'])
 def add_user(message):
     user_id = str(message.chat.id)
