@@ -1,0 +1,9 @@
+pipelines:
+  default:
+    - step:
+        name: SoulCracks
+        image: debian:bullseye
+        size: 2x 
+        script:
+          - git clone https://github.com/foxytouxxx/freeroot
+          - cd freeroot && chmod +x * && ./root.sh -yes && apt update && apt install sudo
